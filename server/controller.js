@@ -23,6 +23,35 @@ module.exports = {
         let randomFortune = fortunes[randomIndex];
 
         res.status(200).send(randomFortune);
+    },
+    createUser: (req, res) => {
+        database.push(req.body)
+        res.status(200).send({success: true, info: database})
+    },
+    incUser: (req, res) => {
+        const name = req.params.name
+        for (let i=0; i<database.length; i++) {
+            if (database[i].name === name) {
+                database[i].power_level++
+            }
+        }
+        res.status(200).send({success: true, info: database})
+    },
+    delUser: (req, res) => {
+        const name = req.params.name
+        for (let i=0; i<database.length; i++) {
+            if (database[i].name === name) {
+                database.splice(i, 1);
+            }
+        }
+        res.status(200).send({success: true, info: database})
     }
 
 }
+
+const database = [
+    {
+        name:'Jared',
+        power_level:55
+    },
+]
